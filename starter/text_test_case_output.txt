@@ -1,0 +1,154 @@
+Evaluating run_text_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                       Evaluation Summary: run_text_moderation                                       
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID                 ┃ Inputs                               ┃ Outputs                             ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_text_run_1 │ [TextInput(text_file='/home/renan/Do │ rationale='The message is friendly  │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ and professional. It offers help,   │            │
+│                         │ ai/third/project/starter/evals/test_ │ provides clear instructions on how  │            │
+│                         │ data/professional_text.txt')]        │ to proceed, and offers further      │            │
+│                         │                                      │ assistance. No PII was detected.'   │            │
+│                         │                                      │ contains_pii=False                  │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_text_run_2 │ [TextInput(text_file='/home/renan/Do │ rationale='The message is friendly  │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ and professional. It offers help,   │            │
+│                         │ ai/third/project/starter/evals/test_ │ provides clear instructions for     │            │
+│                         │ data/professional_text.txt')]        │ account setup, directs the user to  │            │
+│                         │                                      │ helpful resources, and offers       │            │
+│                         │                                      │ further assistance in a polite      │            │
+│                         │                                      │ manner. No PII was detected.'       │            │
+│                         │                                      │ contains_pii=False                  │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_text_run_3 │ [TextInput(text_file='/home/renan/Do │ rationale='The message is friendly  │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ and professional. It offers         │            │
+│                         │ ai/third/project/starter/evals/test_ │ assistance and directs the user to  │            │
+│                         │ data/professional_text.txt')]        │ helpful resources without being     │            │
+│                         │                                      │ intrusive.' contains_pii=False      │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_text_run_4 │ [TextInput(text_file='/home/renan/Do │ rationale='The message is friendly  │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ and professional. It offers         │            │
+│                         │ ai/third/project/starter/evals/test_ │ assistance and provides clear next  │            │
+│                         │ data/professional_text.txt')]        │ steps for the customer. No PII was  │            │
+│                         │                                      │ detected.' contains_pii=False       │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_text_run_5 │ [TextInput(text_file='/home/renan/Do │ rationale='The message is friendly  │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ and professional. It offers help,   │            │
+│                         │ ai/third/project/starter/evals/test_ │ directs the user to a resource, and │            │
+│                         │ data/professional_text.txt')]        │ provides further assistance         │            │
+│                         │                                      │ options. No PII was detected.'      │            │
+│                         │                                      │ contains_pii=False                  │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ text_with_pii_run_1     │ [TextInput(text_file='/home/renan/Do │ rationale="The message contains     │ ✗✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ personally-identifiable             │            │
+│                         │ ai/third/project/starter/evals/test_ │ information, including the          │            │
+│                         │ data/text_with_pii.txt')]            │ customer's full name, shipping      │            │
+│                         │                                      │ address, email address, phone       │            │
+│                         │                                      │ number, and account number. This    │            │
+│                         │                                      │ information should not be shared    │            │
+│                         │                                      │ directly in a customer interaction. │            │
+│                         │                                      │ The tone is friendly and            │            │
+│                         │                                      │ professional, but the inclusion of  │            │
+│                         │                                      │ PII makes it unprofessional."       │            │
+│                         │                                      │ contains_pii=True                   │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ text_with_pii_run_2     │ [TextInput(text_file='/home/renan/Do │ rationale='The message contains     │ ✔✗✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ personally-identifiable information │            │
+│                         │ ai/third/project/starter/evals/test_ │ including the customer'             │            │
+│                         │ data/text_with_pii.txt')]            │ contains_pii=True                   │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ text_with_pii_run_3     │ [TextInput(text_file='/home/renan/Do │ rationale="The message includes     │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ personally-identifiable             │            │
+│                         │ ai/third/project/starter/evals/test_ │ information, including the          │            │
+│                         │ data/text_with_pii.txt')]            │ customer's full name, new shipping  │            │
+│                         │                                      │ address, email address, phone       │            │
+│                         │                                      │ number, and account number. This    │            │
+│                         │                                      │ should be handled with more         │            │
+│                         │                                      │ security and privacy                │            │
+│                         │                                      │ considerations. " contains_pii=True │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ text_with_pii_run_4     │ [TextInput(text_file='/home/renan/Do │ rationale="The message contains     │ ✗✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ Personally Identifiable Information │            │
+│                         │ ai/third/project/starter/evals/test_ │ (PII) including the customer's full │            │
+│                         │ data/text_with_pii.txt')]            │ name, new shipping address, email   │            │
+│                         │                                      │ address, phone number, and account  │            │
+│                         │                                      │ number. It also includes a direct   │            │
+│                         │                                      │ phone number for the                │            │
+│                         │                                      │ representative, which could be seen │            │
+│                         │                                      │ as unprofessional by implying a     │            │
+│                         │                                      │ level of direct access beyond       │            │
+│                         │                                      │ standard customer service           │            │
+│                         │                                      │ channels." contains_pii=True        │            │
+│                         │                                      │ is_unfriendly=False                 │            │
+│                         │                                      │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ text_with_pii_run_5     │ [TextInput(text_file='/home/renan/Do │ rationale='The message contains a   │ ✔✗✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ customer' contains_pii=True         │            │
+│                         │ ai/third/project/starter/evals/test_ │ is_unfriendly=False                 │            │
+│                         │ data/text_with_pii.txt')]            │ is_unprofessional=False             │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_1   │ [TextInput(text_file='/home/renan/Do │ rationale='The customer service     │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ representative used a sarcastic and │            │
+│                         │ ai/third/project/starter/evals/test_ │ condescending tone. They expressed  │            │
+│                         │ data/unfriendly_text.txt')]          │ frustration and explicitly stated   │            │
+│                         │                                      │ that the customer was wasting their │            │
+│                         │                                      │ time, which is unprofessional and   │            │
+│                         │                                      │ unfriendly. The use of phrases like │            │
+│                         │                                      │ "Seriously??" and "that'            │            │
+│                         │                                      │ contains_pii=False                  │            │
+│                         │                                      │ is_unfriendly=True                  │            │
+│                         │                                      │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_2   │ [TextInput(text_file='/home/renan/Do │ rationale='The customer             │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ representative used a sarcastic and │            │
+│                         │ ai/third/project/starter/evals/test_ │ condescending tone. Phrases like    │            │
+│                         │ data/unfriendly_text.txt')]          │ "Seriously??" and "that\'s your     │            │
+│                         │                                      │ problem" are unprofessional and     │            │
+│                         │                                      │ unfriendly. The representative also │            │
+│                         │                                      │ accused the customer of "wasting my │            │
+│                         │                                      │ time" and implied the customer was  │            │
+│                         │                                      │ not reading instructions, which is  │            │
+│                         │                                      │ accusatory and unprofessional. '    │            │
+│                         │                                      │ contains_pii=False                  │            │
+│                         │                                      │ is_unfriendly=True                  │            │
+│                         │                                      │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_3   │ [TextInput(text_file='/home/renan/Do │ rationale='The customer             │ ✔✔✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ representative used sarcastic and   │            │
+│                         │ ai/third/project/starter/evals/test_ │ aggressive language ("Seriously??", │            │
+│                         │ data/unfriendly_text.txt')]          │ "that\'s your problem.", "Maybe you │            │
+│                         │                                      │ should try actually reading the     │            │
+│                         │                                      │ instructions instead of wasting my  │            │
+│                         │                                      │ time"). This tone is not friendly   │            │
+│                         │                                      │ or professional. There is no PII in │            │
+│                         │                                      │ this message.' contains_pii=False   │            │
+│                         │                                      │ is_unfriendly=True                  │            │
+│                         │                                      │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_4   │ [TextInput(text_file='/home/renan/Do │ rationale='"The customer service    │ ✔✗✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ representative' contains_pii=False  │            │
+│                         │ ai/third/project/starter/evals/test_ │ is_unfriendly=True                  │            │
+│                         │ data/unfriendly_text.txt')]          │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_5   │ [TextInput(text_file='/home/renan/Do │ rationale='"The user'               │ ✔✗✔✔       │
+│                         │ cuments/Projects/udacity/generative- │ contains_pii=False                  │            │
+│                         │ ai/third/project/starter/evals/test_ │ is_unfriendly=True                  │            │
+│                         │ data/unfriendly_text.txt')]          │ is_unprofessional=True              │            │
+├─────────────────────────┼──────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ Averages                │                                      │                                     │ 90.0% ✔    │
+└─────────────────────────┴──────────────────────────────────────┴─────────────────────────────────────┴────────────┘

@@ -1,0 +1,141 @@
+Evaluating run_image_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                      Evaluation Summary: run_image_moderation                                       
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID                  ┃ Inputs                              ┃ Outputs                             ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_image_run_1 │ [ImageInput(image_file='/home/renan │ rationale='The image is             │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ professional and suitable for       │            │
+│                          │ ive-ai/third/project/starter/evals/ │ customer service. It is not         │            │
+│                          │ test_data/professional_image.jpg')] │ disturbing, does not contain any    │            │
+│                          │                                     │ personally identifiable             │            │
+│                          │                                     │ information, and is of high         │            │
+│                          │                                     │ quality.' contains_pii=False        │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_image_run_2 │ [ImageInput(image_file='/home/renan │ rationale='The image is of a        │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ product and does not contain any    │            │
+│                          │ ive-ai/third/project/starter/evals/ │ disturbing content or personally    │            │
+│                          │ test_data/professional_image.jpg')] │ identifiable information. The image │            │
+│                          │                                     │ quality is high.'                   │            │
+│                          │                                     │ contains_pii=False                  │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_image_run_3 │ [ImageInput(image_file='/home/renan │ rationale='The image is a clean,    │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ professional product shot of a      │            │
+│                          │ ive-ai/third/project/starter/evals/ │ power bank and accessories. It is   │            │
+│                          │ test_data/professional_image.jpg')] │ well-lit, in focus, and free of any │            │
+│                          │                                     │ disturbing content or personally    │            │
+│                          │                                     │ identifiable information.'          │            │
+│                          │                                     │ contains_pii=False                  │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_image_run_4 │ [ImageInput(image_file='/home/renan │ rationale='The image is of a power  │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ bank, laptop, headphones, and a     │            │
+│                          │ ive-ai/third/project/starter/evals/ │ smartphone on a desk. There are no  │            │
+│                          │ test_data/professional_image.jpg')] │ disturbing elements, PII, or        │            │
+│                          │                                     │ quality issues.' contains_pii=False │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ professional_image_run_5 │ [ImageInput(image_file='/home/renan │ rationale='The image is of a power  │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ bank, laptop, headphones, and phone │            │
+│                          │ ive-ai/third/project/starter/evals/ │ on a desk. There are no people,     │            │
+│                          │ test_data/professional_image.jpg')] │ disturbing content, or any elements │            │
+│                          │                                     │ that would indicate low quality.    │            │
+│                          │                                     │ The image is appropriate for a      │            │
+│                          │                                     │ professional setting.'              │            │
+│                          │                                     │ contains_pii=False                  │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ image_with_person_run_1  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ person, therefore it is not         │            │
+│                          │ ive-ai/third/project/starter/evals/ │ appropriate for a professional      │            │
+│                          │ test_data/image_with_person.jpg')]  │ customer service setting.'          │            │
+│                          │                                     │ contains_pii=True                   │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ image_with_person_run_2  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ person, which is considered         │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/image_with_person.jpg')]  │ (PII).' contains_pii=True           │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ image_with_person_run_3  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ person, which is not appropriate    │            │
+│                          │ ive-ai/third/project/starter/evals/ │ for a professional customer service │            │
+│                          │ test_data/image_with_person.jpg')]  │ setting as it may contain PII.'     │            │
+│                          │                                     │ contains_pii=True                   │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ image_with_person_run_4  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ person, which is considered         │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/image_with_person.jpg')]  │ (PII).' contains_pii=True           │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ image_with_person_run_5  │ [ImageInput(image_file='/home/renan │ rationale='The image is             │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ professional and suitable for       │            │
+│                          │ ive-ai/third/project/starter/evals/ │ customer service as it depicts a    │            │
+│                          │ test_data/image_with_person.jpg')]  │ person using a portable charger in  │            │
+│                          │                                     │ a clean, well-lit environment.      │            │
+│                          │                                     │ There are no disturbing elements    │            │
+│                          │                                     │ present, and the image quality is   │            │
+│                          │                                     │ high. The image contains a person,  │            │
+│                          │                                     │ so contains_pii is set to True.'    │            │
+│                          │                                     │ contains_pii=True                   │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ low_quality_image_run_1  │ [ImageInput(image_file='/home/renan │ rationale="The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ person's hand, which is considered  │            │
+│                          │ ive-ai/third/project/starter/evals/ │ Personally Identifiable Information │            │
+│                          │ test_data/low_quality_image.jpg')]  │ (PII). The image is also slightly   │            │
+│                          │                                     │ blurry, which affects its quality." │            │
+│                          │                                     │ contains_pii=True                   │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=True                 │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ low_quality_image_run_2  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✗✗✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ hand, which can be considered       │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/low_quality_image.jpg')]  │ (PII).' contains_pii=True           │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ low_quality_image_run_3  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ hand, which is considered           │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/low_quality_image.jpg')]  │ (PII). Additionally, the image has  │            │
+│                          │                                     │ a slight blurriness, indicating it  │            │
+│                          │                                     │ might be considered low quality for │            │
+│                          │                                     │ a professional setting.'            │            │
+│                          │                                     │ contains_pii=True                   │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=True                 │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ low_quality_image_run_4  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✔✔✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ hand, which is considered           │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/low_quality_image.jpg')]  │ (PII). Additionally, the image is   │            │
+│                          │                                     │ blurry and lacks clarity, making it │            │
+│                          │                                     │ of low quality.' contains_pii=True  │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=True                 │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ low_quality_image_run_5  │ [ImageInput(image_file='/home/renan │ rationale='The image contains a     │ ✗✗✔✔       │
+│                          │ /Documents/Projects/udacity/generat │ hand, which is considered           │            │
+│                          │ ive-ai/third/project/starter/evals/ │ personally-identifiable information │            │
+│                          │ test_data/low_quality_image.jpg')]  │ (PII).' contains_pii=True           │            │
+│                          │                                     │ is_disturbing=False                 │            │
+│                          │                                     │ is_low_quality=False                │            │
+├──────────────────────────┼─────────────────────────────────────┼─────────────────────────────────────┼────────────┤
+│ Averages                 │                                     │                                     │ 93.3% ✔    │
+└──────────────────────────┴─────────────────────────────────────┴─────────────────────────────────────┴────────────┘
