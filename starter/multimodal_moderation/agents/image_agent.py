@@ -23,6 +23,8 @@ Detect if:
     contains_pii to True.
 - the image is of low quality (blurry, pixelated, underexposed, overexposed, etc.)
 
+Set is_flagged to True if any of the above conditions are met (disturbing, contains PII, or low quality). Otherwise set it to False.
+
 
 OUTPUT
 Provide a detailed rationale for your choices.

@@ -22,19 +22,27 @@ class TestModerationResult:
 
     def test_has_rationale_field(self):
         """Verify ModerationResult has rationale field"""
-        result = ModerationResult(rationale="Test rationale")
+        result = ModerationResult(rationale="Test rationale", is_flagged=False)
         assert hasattr(result, "rationale"), "ModerationResult should have a 'rationale' attribute"
+        assert hasattr(result, "is_flagged"), "ModerationResult should have a 'is_flagged' attribute"
         assert isinstance(result.rationale, str), "rationale should be a string"
+        assert isinstance(result.is_flagged, bool), "is_flagged should be a boolean"
         assert result.rationale == "Test rationale", "rationale should contain the provided value"
+        assert result.is_flagged is False, "is_flagged should contain the provided value"
 
     def test_rationale_is_required(self):
         """Verify rationale field is required"""
         with pytest.raises(ValidationError, match="rationale"):
-            ModerationResult()
+            ModerationResult(is_flagged=False)
+
+    def test_is_flagged_is_required(self):
+        """Verify is_flagged field is required"""
+        with pytest.raises(ValidationError, match="is_flagged"):
+            ModerationResult(rationale="Test")
 
     def test_is_pydantic_model(self):
         """Verify ModerationResult is a Pydantic BaseModel"""
-        result = ModerationResult(rationale="Test")
+        result = ModerationResult(rationale="Test", is_flagged=False)
         assert hasattr(result, "model_dump"), "ModerationResult should have model_dump method (Pydantic BaseModel)"
         assert hasattr(result, "model_validate"), "ModerationResult should have model_validate method (Pydantic BaseModel)"
 
@@ -46,6 +54,7 @@ class TestTextModerationResult:
         """Verify TextModerationResult has all required fields"""
         result = TextModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_unfriendly=False,
             is_unprofessional=True,
@@ -60,6 +69,7 @@ class TestTextModerationResult:
         """Verify all fields have correct types"""
         result = TextModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_unfriendly=False,
             is_unprofessional=True,
@@ -78,7 +88,7 @@ class TestTextModerationResult:
     def test_all_fields_are_required(self):
         """Verify all fields are required"""
         with pytest.raises(ValidationError, match="contains_pii|is_unfriendly|is_unprofessional"):
-            TextModerationResult(rationale="Test")
+            TextModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestImageModerationResult:
@@ -88,6 +98,7 @@ class TestImageModerationResult:
         """Verify ImageModerationResult has all required fields"""
         result = ImageModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -102,6 +113,7 @@ class TestImageModerationResult:
         """Verify all fields have correct types"""
         result = ImageModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -120,7 +132,7 @@ class TestImageModerationResult:
     def test_all_fields_are_required(self):
         """Verify all fields are required"""
         with pytest.raises(ValidationError, match="contains_pii|is_disturbing|is_low_quality"):
-            ImageModerationResult(rationale="Test")
+            ImageModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestVideoModerationResult:
@@ -130,6 +142,7 @@ class TestVideoModerationResult:
         """Verify VideoModerationResult has all required fields"""
         result = VideoModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -144,6 +157,7 @@ class TestVideoModerationResult:
         """Verify all fields have correct types"""
         result = VideoModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -162,7 +176,7 @@ class TestVideoModerationResult:
     def test_all_fields_are_required(self):
         """Verify all fields are required"""
         with pytest.raises(ValidationError, match="contains_pii|is_disturbing|is_low_quality"):
-            VideoModerationResult(rationale="Test")
+            VideoModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestAudioModerationResult:
@@ -172,6 +186,7 @@ class TestAudioModerationResult:
         """Verify AudioModerationResult has all required fields"""
         result = AudioModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             transcription="Test transcription",
             contains_pii=True,
             is_unfriendly=False,
@@ -188,6 +203,7 @@ class TestAudioModerationResult:
         """Verify all fields have correct types"""
         result = AudioModerationResult(
             rationale="Test rationale",
+            is_flagged=True,
             transcription="Test transcription",
             contains_pii=True,
             is_unfriendly=False,
@@ -208,4 +224,4 @@ class TestAudioModerationResult:
     def test_all_fields_are_required(self):
         """Verify all fields are required"""
         with pytest.raises(ValidationError, match="transcription|contains_pii|is_unfriendly|is_unprofessional"):
-            AudioModerationResult(rationale="Test", transcription="Test")
+            AudioModerationResult(rationale="Test", transcription="Test", is_flagged=False)

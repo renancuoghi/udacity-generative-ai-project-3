@@ -22,6 +22,8 @@ Detect if:
 - the tone of the message is unfriendly
 - the tone of the message is unprofessional
 - the message contains any personally-identifiable information (PII)
+
+Set is_flagged to True if any of the above conditions are met (unfriendly, unprofessional, or contains PII). Otherwise set it to False.
 </instructions>
 
 <output>

@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 
 class ModerationResult(BaseModel):
 
+    is_flagged: bool = Field(description="Whether the content was flagged by any of the safety checks")
     rationale: str = Field(description="Explanation of what was harmful and why")
 
 
