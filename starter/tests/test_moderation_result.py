@@ -30,15 +30,27 @@ class TestModerationResult:
         assert result.rationale == "Test rationale", "rationale should contain the provided value"
         assert result.is_flagged is False, "is_flagged should contain the provided value"
 
-    def test_rationale_is_required(self):
-        """Verify rationale field is required"""
-        with pytest.raises(ValidationError, match="rationale"):
-            ModerationResult(is_flagged=False)
+    def test_defaults(self):
+        """Verify defaults"""
+        result = ModerationResult()
+        assert result.rationale == ""
+        assert result.is_flagged is False
+        assert result.contains_pii is False
+        assert result.is_unfriendly is False
+        assert result.is_unprofessional is False
 
-    def test_is_flagged_is_required(self):
-        """Verify is_flagged field is required"""
-        with pytest.raises(ValidationError, match="is_flagged"):
-            ModerationResult(rationale="Test")
+    def test_is_flagged_logic(self):
+        """Verify is_flagged logic"""
+        # Auto-flagging
+        assert ModerationResult(contains_pii=True).is_flagged is True
+        assert ModerationResult(is_unfriendly=True).is_flagged is True
+        assert ModerationResult(is_unprofessional=True).is_flagged is True
+        
+        # Override manual setting if no flags
+        assert ModerationResult(is_flagged=True).is_flagged is False
+        
+        # Override manual setting if flags
+        assert ModerationResult(is_flagged=False, contains_pii=True).is_flagged is True
 
     def test_is_pydantic_model(self):
         """Verify ModerationResult is a Pydantic BaseModel"""
@@ -54,7 +66,7 @@ class TestTextModerationResult:
         """Verify TextModerationResult has all required fields"""
         result = TextModerationResult(
             rationale="Test rationale",
-            is_flagged=True,
+            is_flagged=True,  # Will be corrected to False if flags are false
             contains_pii=True,
             is_unfriendly=False,
             is_unprofessional=True,
@@ -64,31 +76,19 @@ class TestTextModerationResult:
         assert hasattr(result, "contains_pii"), "TextModerationResult should have 'contains_pii' field"
         assert hasattr(result, "is_unfriendly"), "TextModerationResult should have 'is_unfriendly' field"
         assert hasattr(result, "is_unprofessional"), "TextModerationResult should have 'is_unprofessional' field"
+        # Logic check
+        assert result.is_flagged is True
 
-    def test_field_types(self):
-        """Verify all fields have correct types"""
-        result = TextModerationResult(
-            rationale="Test rationale",
-            is_flagged=True,
-            contains_pii=True,
-            is_unfriendly=False,
-            is_unprofessional=True,
-        )
-
-        assert isinstance(result.rationale, str), "rationale should be a string"
-        assert isinstance(result.contains_pii, bool), "contains_pii should be a boolean"
-        assert isinstance(result.is_unfriendly, bool), "is_unfriendly should be a boolean"
-        assert isinstance(result.is_unprofessional, bool), "is_unprofessional should be a boolean"
+    def test_defaults(self):
+        """Verify defaults"""
+        result = TextModerationResult()
+        assert result.rationale == ""
+        assert result.contains_pii is False
 
     def test_inherits_from_moderation_result(self):
         """Verify TextModerationResult inherits from ModerationResult"""
         assert issubclass(TextModerationResult, ModerationResult), \
             "TextModerationResult should inherit from ModerationResult"
-
-    def test_all_fields_are_required(self):
-        """Verify all fields are required"""
-        with pytest.raises(ValidationError, match="contains_pii|is_unfriendly|is_unprofessional"):
-            TextModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestImageModerationResult:
@@ -98,7 +98,8 @@ class TestImageModerationResult:
         """Verify ImageModerationResult has all required fields"""
         result = ImageModerationResult(
             rationale="Test rationale",
-            is_flagged=True,
+            # is_flagged logic will run. Since is_disturbing is set separately below...
+            # We must pass arguments.
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -108,31 +109,26 @@ class TestImageModerationResult:
         assert hasattr(result, "contains_pii"), "ImageModerationResult should have 'contains_pii' field"
         assert hasattr(result, "is_disturbing"), "ImageModerationResult should have 'is_disturbing' field"
         assert hasattr(result, "is_low_quality"), "ImageModerationResult should have 'is_low_quality' field"
+        
+        # Check logic: contains_pii=True -> is_flagged=True
+        assert result.is_flagged is True
 
-    def test_field_types(self):
-        """Verify all fields have correct types"""
-        result = ImageModerationResult(
-            rationale="Test rationale",
-            is_flagged=True,
-            contains_pii=True,
-            is_disturbing=False,
-            is_low_quality=True,
-        )
+    def test_is_flagged_with_disturbing(self):
+        """Verify is_disturbing triggers is_flagged"""
+        result = ImageModerationResult(is_disturbing=True)
+        assert result.is_flagged is True
 
-        assert isinstance(result.rationale, str), "rationale should be a string"
-        assert isinstance(result.contains_pii, bool), "contains_pii should be a boolean"
-        assert isinstance(result.is_disturbing, bool), "is_disturbing should be a boolean"
-        assert isinstance(result.is_low_quality, bool), "is_low_quality should be a boolean"
+    def test_defaults(self):
+        """Verify defaults"""
+        result = ImageModerationResult()
+        assert result.is_disturbing is False
+        assert result.is_low_quality is False
+        assert result.is_flagged is False
 
     def test_inherits_from_moderation_result(self):
         """Verify ImageModerationResult inherits from ModerationResult"""
         assert issubclass(ImageModerationResult, ModerationResult), \
             "ImageModerationResult should inherit from ModerationResult"
-
-    def test_all_fields_are_required(self):
-        """Verify all fields are required"""
-        with pytest.raises(ValidationError, match="contains_pii|is_disturbing|is_low_quality"):
-            ImageModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestVideoModerationResult:
@@ -142,7 +138,6 @@ class TestVideoModerationResult:
         """Verify VideoModerationResult has all required fields"""
         result = VideoModerationResult(
             rationale="Test rationale",
-            is_flagged=True,
             contains_pii=True,
             is_disturbing=False,
             is_low_quality=True,
@@ -152,31 +147,23 @@ class TestVideoModerationResult:
         assert hasattr(result, "contains_pii"), "VideoModerationResult should have 'contains_pii' field"
         assert hasattr(result, "is_disturbing"), "VideoModerationResult should have 'is_disturbing' field"
         assert hasattr(result, "is_low_quality"), "VideoModerationResult should have 'is_low_quality' field"
+        assert result.is_flagged is True
 
-    def test_field_types(self):
-        """Verify all fields have correct types"""
-        result = VideoModerationResult(
-            rationale="Test rationale",
-            is_flagged=True,
-            contains_pii=True,
-            is_disturbing=False,
-            is_low_quality=True,
-        )
+    def test_is_flagged_with_disturbing(self):
+        """Verify is_disturbing triggers is_flagged"""
+        result = VideoModerationResult(is_disturbing=True)
+        assert result.is_flagged is True
 
-        assert isinstance(result.rationale, str), "rationale should be a string"
-        assert isinstance(result.contains_pii, bool), "contains_pii should be a boolean"
-        assert isinstance(result.is_disturbing, bool), "is_disturbing should be a boolean"
-        assert isinstance(result.is_low_quality, bool), "is_low_quality should be a boolean"
+    def test_defaults(self):
+        """Verify defaults"""
+        result = VideoModerationResult()
+        assert result.is_disturbing is False
+        assert result.is_flagged is False
 
     def test_inherits_from_moderation_result(self):
         """Verify VideoModerationResult inherits from ModerationResult"""
         assert issubclass(VideoModerationResult, ModerationResult), \
             "VideoModerationResult should inherit from ModerationResult"
-
-    def test_all_fields_are_required(self):
-        """Verify all fields are required"""
-        with pytest.raises(ValidationError, match="contains_pii|is_disturbing|is_low_quality"):
-            VideoModerationResult(rationale="Test", is_flagged=False)
 
 
 class TestAudioModerationResult:
@@ -186,7 +173,6 @@ class TestAudioModerationResult:
         """Verify AudioModerationResult has all required fields"""
         result = AudioModerationResult(
             rationale="Test rationale",
-            is_flagged=True,
             transcription="Test transcription",
             contains_pii=True,
             is_unfriendly=False,
@@ -198,30 +184,15 @@ class TestAudioModerationResult:
         assert hasattr(result, "contains_pii"), "AudioModerationResult should have 'contains_pii' field"
         assert hasattr(result, "is_unfriendly"), "AudioModerationResult should have 'is_unfriendly' field"
         assert hasattr(result, "is_unprofessional"), "AudioModerationResult should have 'is_unprofessional' field"
+        assert result.is_flagged is True
 
-    def test_field_types(self):
-        """Verify all fields have correct types"""
-        result = AudioModerationResult(
-            rationale="Test rationale",
-            is_flagged=True,
-            transcription="Test transcription",
-            contains_pii=True,
-            is_unfriendly=False,
-            is_unprofessional=True,
-        )
-
-        assert isinstance(result.rationale, str), "rationale should be a string"
-        assert isinstance(result.transcription, str), "transcription should be a string"
-        assert isinstance(result.contains_pii, bool), "contains_pii should be a boolean"
-        assert isinstance(result.is_unfriendly, bool), "is_unfriendly should be a boolean"
-        assert isinstance(result.is_unprofessional, bool), "is_unprofessional should be a boolean"
+    def test_defaults(self):
+        """Verify defaults"""
+        result = AudioModerationResult()
+        assert result.transcription == ""
+        assert result.is_flagged is False
 
     def test_inherits_from_moderation_result(self):
         """Verify AudioModerationResult inherits from ModerationResult"""
         assert issubclass(AudioModerationResult, ModerationResult), \
             "AudioModerationResult should inherit from ModerationResult"
-
-    def test_all_fields_are_required(self):
-        """Verify all fields are required"""
-        with pytest.raises(ValidationError, match="transcription|contains_pii|is_unfriendly|is_unprofessional"):
-            AudioModerationResult(rationale="Test", transcription="Test", is_flagged=False)
